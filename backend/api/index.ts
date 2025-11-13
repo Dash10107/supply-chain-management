@@ -31,12 +31,14 @@ swaggerSetup(app);
 app.use('/api', routes);
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
+  void _req;
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // Root endpoint
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
+  void _req;
   res.json({ 
     message: 'Walmart SCM API',
     version: '1.0.0',
@@ -82,7 +84,8 @@ const initializeDatabase = async () => {
 };
 
 // Initialize database before handling requests
-app.use(async (req, res, next) => {
+app.use(async (_req, _res, next) => {
+  void _req; void _res;
   try {
     await initializeDatabase();
   } catch (error) {
@@ -91,5 +94,11 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Export for Vercel serverless
-export default app;
+// Export a plain request handler for Vercel (avoid extra runtime dependency).
+// Vercel's Node environment provides Node-style req/res which Express can handle
+// directly by calling the app as a function.
+export default function handler(req: any, res: any) {
+  return app(req, res);
+}
+
+export { app };
