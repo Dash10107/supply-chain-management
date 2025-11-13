@@ -1,18 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "functions": {
-    "api/index.ts": {
-      "runtime": "nodejs18.x",
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
+  "builds": [
+    { "src": "package.json", "use": "@vercel/node" }
+  ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.ts"
-    }
+    { "src": "/api/(.*)", "dest": "src/index.ts" }
   ]
 }
