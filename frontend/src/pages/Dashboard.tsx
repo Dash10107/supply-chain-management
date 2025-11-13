@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import apiClient from '../api/client';
 import { formatCurrency } from '../utils/format';
 import StatCard from '../components/StatCard';
-import EmptyState from '../components/EmptyState';
+// EmptyState not used
 
 const Dashboard = () => {
   const { data, isLoading } = useQuery('dashboard-stats', async () => {

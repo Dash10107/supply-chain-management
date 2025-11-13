@@ -4,6 +4,7 @@ import { SalesOrder } from '../schemas/SalesOrder';
 import { PurchaseOrder } from '../schemas/PurchaseOrder';
 import { Inventory } from '../schemas/Inventory';
 import { Product } from '../schemas/Product';
+import { SalesOrderStatus } from '../schemas/SalesOrder';
 
 export class AnalyticsService {
   private salesOrderRepository: Repository<SalesOrder>;
@@ -40,7 +41,7 @@ export class AnalyticsService {
       .getRawOne();
 
     const pendingOrders = await this.salesOrderRepository.count({
-      where: { status: 'pending' },
+      where: { status: SalesOrderStatus.PENDING },
     });
 
     return {

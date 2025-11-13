@@ -5,13 +5,12 @@ import {
   IsUUID,
   IsArray,
   ValidateNested,
-  IsEnum,
   IsDateString,
   Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { SalesOrderStatus, PurchaseOrderStatus } from '../schemas';
-
+  
+  
 export class CreateSalesOrderItemDto {
   @IsUUID()
   productId!: string;

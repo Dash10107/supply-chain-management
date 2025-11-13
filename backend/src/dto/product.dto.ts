@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsBoolean,
   Min,
-  IsUUID,
 } from 'class-validator';
 
 export class CreateProductDto {

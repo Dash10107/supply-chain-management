@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { Role } from '../schemas/Role';
 
@@ -7,6 +6,7 @@ const router = Router();
 
 router.get('/', async (req, res, next) => {
   try {
+    void req;
     const roleRepository = AppDataSource.getRepository(Role);
     const roles = await roleRepository.find({
       order: { name: 'ASC' },

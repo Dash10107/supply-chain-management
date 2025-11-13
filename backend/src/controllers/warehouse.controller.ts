@@ -13,6 +13,7 @@ export class WarehouseController {
 
   findAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      void req;
       const warehouses = await this.warehouseRepository.find({
         order: { createdAt: 'DESC' },
       });

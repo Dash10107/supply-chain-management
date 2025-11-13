@@ -17,6 +17,7 @@ export class InventoryTransferService {
     quantity: number,
     userId?: string
   ): Promise<void> {
+    void userId;
     if (fromWarehouseId === toWarehouseId) {
       throw new AppError('Source and destination warehouses cannot be the same', 400);
     }

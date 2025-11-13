@@ -1,19 +1,16 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { PurchaseOrder, PurchaseOrderStatus } from '../schemas/PurchaseOrder';
-import { PurchaseOrderItem } from '../schemas/PurchaseOrderItem';
 import { InventoryService } from './inventory.service';
 import { ReceivePurchaseOrderDto } from '../dto/order.dto';
 import { AppError } from '../middlewares/error-handler';
 
 export class PurchaseOrderService {
   private purchaseOrderRepository: Repository<PurchaseOrder>;
-  private purchaseOrderItemRepository: Repository<PurchaseOrderItem>;
   private inventoryService: InventoryService;
 
   constructor() {
     this.purchaseOrderRepository = AppDataSource.getRepository(PurchaseOrder);
-    this.purchaseOrderItemRepository = AppDataSource.getRepository(PurchaseOrderItem);
     this.inventoryService = new InventoryService();
   }
 

@@ -1,15 +1,19 @@
+import type { ChangeEvent } from 'react';
+
 interface FormInputProps {
   label: string;
   name: string;
   type?: string;
   value: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   placeholder?: string;
   required?: boolean;
   error?: string;
   options?: Array<{ value: string | number; label: string }>;
   textarea?: boolean;
   rows?: number;
+  disabled?: boolean;
+  step?: string | number;
 }
 
 const FormInput = ({

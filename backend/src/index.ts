@@ -32,11 +32,13 @@ app.use('/api', routes);
 
 // Health check
 app.get('/health', (req, res) => {
+  void req;
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // Root endpoint
 app.get('/', (req, res) => {
+  void req;
   res.json({ 
     message: 'Walmart SCM API',
     version: '1.0.0',

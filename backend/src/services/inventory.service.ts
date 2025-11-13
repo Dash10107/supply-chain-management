@@ -1,4 +1,4 @@
-import { Repository, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { Inventory } from '../schemas/Inventory';
 import { Product } from '../schemas/Product';

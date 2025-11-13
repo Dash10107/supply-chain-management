@@ -1,4 +1,4 @@
-import { Repository, DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import {
   SalesOrder,

@@ -37,6 +37,7 @@ const Analytics = () => {
       return response.data.data;
     }
   );
+  void dashboardStats;
 
   // Sales by period
   const { data: salesData, isLoading: loadingSales } = useQuery(
@@ -82,7 +83,8 @@ const Analytics = () => {
   const isLoading = loadingStats || loadingSales || loadingTopProducts || loadingLowStock;
 
   // Prepare sales chart data
-  const salesChartData =
+  type SalesChartPoint = { date: string; revenue: number; orders: number };
+  const salesChartData: SalesChartPoint[] =
     salesData?.map((item: any) => ({
       date: new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
       revenue: parseFloat(item.total || '0'),
@@ -90,18 +92,19 @@ const Analytics = () => {
     })) || [];
 
   // Prepare top products chart data
-  const topProductsData =
+  type TopProductPoint = { name: string; quantity: number; revenue: number };
+  const topProductsData: TopProductPoint[] =
     topProducts?.map((p: any) => ({
-      name: p.productName?.substring(0, 20) + (p.productName?.length > 20 ? '...' : '') || 'Unknown',
+      name: (p.productName ? (p.productName.substring(0, 20) + (p.productName.length > 20 ? '...' : '')) : 'Unknown'),
       quantity: parseInt(p.totalQuantity || '0'),
       revenue: parseFloat(p.totalRevenue || '0'),
     })) || [];
 
   // Prepare order status distribution
-  const statusCounts = salesOrders?.reduce((acc: any, order: any) => {
+  const statusCounts = salesOrders?.reduce((acc: Record<string, number>, order: any) => {
     acc[order.status] = (acc[order.status] || 0) + 1;
     return acc;
-  }, {}) || {};
+  }, {} as Record<string, number>) || {};
 
   const statusData = Object.entries(statusCounts).map(([name, value]) => ({
     name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -109,8 +112,8 @@ const Analytics = () => {
   }));
 
   // Calculate total revenue from sales data
-  const totalRevenue = salesChartData.reduce((sum, item) => sum + item.revenue, 0);
-  const totalOrders = salesChartData.reduce((sum, item) => sum + item.orders, 0);
+  const totalRevenue = salesChartData.reduce((sum: number, item: SalesChartPoint) => sum + item.revenue, 0);
+  const totalOrders = salesChartData.reduce((sum: number, item: SalesChartPoint) => sum + item.orders, 0);
   const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
 
   if (isLoading) {
@@ -359,7 +362,7 @@ const Analytics = () => {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {statusData.map((entry, index) => (
+                  {statusData.map((_entry, index: number) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>

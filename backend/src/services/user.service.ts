@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
-import { User, UserStatus } from '../schemas/User';
+import { User } from '../schemas/User';
 import { AppError } from '../middlewares/error-handler';
 
 export class UserService {

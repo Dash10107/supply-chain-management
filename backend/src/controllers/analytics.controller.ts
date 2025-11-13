@@ -14,6 +14,7 @@ export class AnalyticsController {
     next: NextFunction
   ): Promise<void> => {
     try {
+      void req;
       const stats = await this.analyticsService.getDashboardStats();
       res.json({
         status: 'success',
@@ -71,6 +72,7 @@ export class AnalyticsController {
     next: NextFunction
   ): Promise<void> => {
     try {
+      void req;
       const products = await this.analyticsService.getLowStockProducts();
       res.json({
         status: 'success',

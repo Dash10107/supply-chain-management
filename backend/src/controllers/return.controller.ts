@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { ReturnService } from '../services/return.service';
-import { ReturnReason } from '../schemas/Return';
 import { AuthRequest } from '../middlewares/auth.middleware';
 
 export class ReturnController {

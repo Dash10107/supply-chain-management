@@ -19,6 +19,8 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ): void => {
+  void req;
+  void next;
   if (Array.isArray(err)) {
     // Validation errors
     const messages = err.map((e) => Object.values(e.constraints || {})).flat();

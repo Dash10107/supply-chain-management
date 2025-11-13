@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { InventoryTransferService } from '../services/inventory-transfer.service';
 import { AuthRequest } from '../middlewares/auth.middleware';
 

@@ -13,6 +13,7 @@ export class SupplierController {
 
   findAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      void req;
       const suppliers = await this.supplierRepository.find({
         order: { createdAt: 'DESC' },
       });
