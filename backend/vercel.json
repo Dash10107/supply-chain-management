@@ -1,9 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
   "installCommand": "npm install",
-  "framework": null,
   "functions": {
     "api/index.ts": {
       "runtime": "nodejs18.x",
@@ -16,9 +14,5 @@
       "src": "/(.*)",
       "dest": "/api/index.ts"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production",
-    "VERCEL": "1"
-  }
+  ]
 }

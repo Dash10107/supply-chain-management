@@ -50,26 +50,44 @@ app.use(errorHandler);
 
 // Initialize database connection (for serverless)
 let dbInitialized = false;
+let dbInitializing = false;
 
 const initializeDatabase = async () => {
-  if (!dbInitialized) {
-    try {
-      if (!AppDataSource.isInitialized) {
-        await AppDataSource.initialize();
-        console.log('Database connected successfully');
-      }
-      dbInitialized = true;
-    } catch (error) {
-      console.error('Error during database initialization:', error);
-      // Don't throw - allow the app to continue
-      // The connection will be retried on next request
+  if (dbInitialized) {
+    return;
+  }
+
+  if (dbInitializing) {
+    // Wait for ongoing initialization
+    while (dbInitializing) {
+      await new Promise(resolve => setTimeout(resolve, 100));
     }
+    return;
+  }
+
+  dbInitializing = true;
+  try {
+    if (!AppDataSource.isInitialized) {
+      await AppDataSource.initialize();
+      console.log('Database connected successfully');
+    }
+    dbInitialized = true;
+  } catch (error) {
+    console.error('Error during database initialization:', error);
+    // Reset flag to allow retry
+    dbInitialized = false;
+  } finally {
+    dbInitializing = false;
   }
 };
 
 // Initialize database before handling requests
 app.use(async (req, res, next) => {
-  await initializeDatabase();
+  try {
+    await initializeDatabase();
+  } catch (error) {
+    console.error('Database initialization error:', error);
+  }
   next();
 });
 
