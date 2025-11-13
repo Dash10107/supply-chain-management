@@ -1,0 +1,11 @@
+// Simple serverless function that returns an "active" response.
+// This is useful as a lightweight health check at /. For this backend project
+// the function will be available at https://<your-backend>.vercel.app/api/ping
+
+export default function handler(req: any, res: any) {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Supply Chain API is active',
+    timestamp: new Date().toISOString(),
+  });
+}
