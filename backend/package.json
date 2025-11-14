@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "build:vercel": "tsc -p tsconfig.vercel.json",
+    "build:vercel": "echo hello from vercel-build",
     "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
