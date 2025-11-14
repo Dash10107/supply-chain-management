@@ -3,7 +3,7 @@ import axios from 'axios';
 // In production, use environment variable or default to relative path
 // You'll set VITE_API_URL in Vercel to your backend URL
 const API_BASE_URL = import.meta.env.VITE_API_URL || 
-  (import.meta.env.PROD ? 'https://supply-chain-management-1jpt.vercel.app/' : 'http://localhost:3000/api');
+  (import.meta.env.PROD ? 'https://supply-chain-management-1jpt.vercel.app/api/' : 'http://localhost:3000/api');
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
