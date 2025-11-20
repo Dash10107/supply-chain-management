@@ -4,7 +4,7 @@
 export const formatCurrency = (value: number | string | null | undefined): string => {
   if (value === null || value === undefined) return 'N/A';
   const num = typeof value === 'string' ? parseFloat(value) : value;
-  return num && !isNaN(num) ? `$${num.toFixed(2)}` : 'N/A';
+  return num && !isNaN(num) ? `Rs ${num.toFixed(2)}` : 'N/A';
 };
 
 /**

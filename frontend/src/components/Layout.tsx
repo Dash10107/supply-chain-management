@@ -7,18 +7,19 @@ const Layout = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Short labels and no emoji to avoid overflow and visual clutter
   const navItems = [
-    { path: '/', label: 'Dashboard', icon: '📊' },
-    { path: '/products', label: 'Products', icon: '📦' },
-    { path: '/suppliers', label: 'Suppliers', icon: '🏢' },
-    { path: '/warehouses', label: 'Warehouses', icon: '🏭' },
-    { path: '/inventory', label: 'Inventory', icon: '📋' },
-    { path: '/purchase-orders', label: 'Purchase Orders', icon: '🛒' },
-    { path: '/sales-orders', label: 'Sales Orders', icon: '📝' },
-    { path: '/shipments', label: 'Shipments', icon: '🚚' },
-    { path: '/returns', label: 'Returns', icon: '↩️' },
-    { path: '/analytics', label: 'Analytics', icon: '📈' },
-    ...(user?.role.name === 'admin' ? [{ path: '/users', label: 'Users', icon: '👥' }] : []),
+    { path: '/', label: 'Dashboard' },
+    { path: '/products', label: 'Products' },
+    { path: '/suppliers', label: 'Suppliers' },
+    { path: '/warehouses', label: 'Warehouses' },
+    { path: '/inventory', label: 'Inventory' },
+    { path: '/purchase-orders', label: 'POs' },
+    { path: '/sales-orders', label: 'Sales' },
+    { path: '/shipments', label: 'Shipments' },
+    { path: '/returns', label: 'Returns' },
+    { path: '/analytics', label: 'Analytics' },
+    ...(user?.role.name === 'admin' ? [{ path: '/users', label: 'Users' }] : []),
   ];
 
   return (
@@ -29,28 +30,30 @@ const Layout = () => {
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="flex items-center">
-                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent whitespace-nowrap">
-                  Walmart SCM
+                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mr-2">
+                  SCM
+                </span>
+                <span className="hidden md:inline text-sm font-semibold text-gray-700 whitespace-nowrap">
+                  Supply Chain Management
                 </span>
               </Link>
             </div>
 
-            {/* Desktop Navigation - Scrollable */}
-            <div className="hidden lg:flex lg:items-center lg:flex-1 lg:justify-center lg:mx-4 lg:overflow-x-auto lg:scrollbar-hide">
-              <div className="flex items-center space-x-1 min-w-max">
+            {/* Desktop Navigation - wrapped to avoid horizontal scrolling */}
+            <div className="hidden lg:flex lg:items-center lg:flex-1 lg:justify-center lg:mx-4">
+              <div className="flex items-center flex-wrap gap-2 justify-center">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${
+                    className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all truncate max-w-[160px] ${
                       location.pathname === item.path
                         ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-600'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                     title={item.label}
                   >
-                    <span className="mr-1.5 text-base flex-shrink-0">{item.icon}</span>
-                    <span className="whitespace-nowrap">{item.label}</span>
+                    <span className="whitespace-nowrap overflow-hidden text-ellipsis">{item.label}</span>
                   </Link>
                 ))}
               </div>
@@ -98,25 +101,7 @@ const Layout = () => {
             </div>
           </div>
 
-          {/* Mobile Navigation - Horizontal Scrollable */}
-          <div className="lg:hidden border-t border-gray-200 overflow-x-auto scrollbar-hide">
-            <div className="flex items-center space-x-1 px-4 py-2 min-w-max">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap flex-shrink-0 ${
-                    location.pathname === item.path
-                      ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-600'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  <span className="mr-1.5">{item.icon}</span>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+          {/* Mobile short navigation removed to avoid horizontal scroll; use hamburger menu */}
         </div>
 
         {/* Mobile dropdown menu (alternative) */}
@@ -134,7 +119,6 @@ const Layout = () => {
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                   }`}
                 >
-                  <span className="mr-3 text-lg">{item.icon}</span>
                   {item.label}
                 </Link>
               ))}

@@ -126,7 +126,7 @@ const Dashboard = () => {
     <div className="space-y-6">
       {/* Welcome Section */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg p-6 text-white">
-        <h1 className="text-3xl font-bold mb-2">Welcome to Walmart SCM</h1>
+        <h1 className="text-3xl font-bold mb-2">Welcome to Supply Chain Management</h1>
         <p className="text-blue-100 text-lg">
           Manage your supply chain operations efficiently. Get started with quick actions below.
         </p>
